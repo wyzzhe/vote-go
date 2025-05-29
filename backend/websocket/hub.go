@@ -18,15 +18,15 @@ var upgrader = websocket.Upgrader{
 type Client struct {
 	hub  *Hub
 	conn *websocket.Conn
-	send chan []byte
+	send chan []byte // 服务器向客户端发送消息通道
 }
 
 // Hub 管理所有客户端连接
 type Hub struct {
-	clients    map[*Client]bool
-	broadcast  chan []byte
-	register   chan *Client
-	unregister chan *Client
+	clients    map[*Client]bool // 客户端hash表
+	broadcast  chan []byte      // 广播消息给所有客户端
+	register   chan *Client     // 注册客户端
+	unregister chan *Client     // 注销客户端
 }
 
 // Message WebSocket消息结构

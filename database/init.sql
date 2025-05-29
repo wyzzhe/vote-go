@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS votes (
     INDEX idx_poll_id (poll_id),
     INDEX idx_option_id (option_id),
     INDEX idx_user_ip (user_ip),
-    UNIQUE KEY unique_poll_ip (poll_id, user_ip),
+    -- 暂不启用唯一索引，防止同一ip清除投票记录后无法再次投票
+    -- UNIQUE KEY unique_poll_ip (poll_id, user_ip),
     FOREIGN KEY (poll_id) REFERENCES polls(id) ON DELETE CASCADE,
     FOREIGN KEY (option_id) REFERENCES options(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='投票记录表';
